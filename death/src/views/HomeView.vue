@@ -5,6 +5,8 @@
       <p>Race: {{ item.race_ethnicity }}</p>
       <p>Sex: {{ item.sex }}</p>
       <p>Cause of Death:{{ item.leading_cause }}</p>
+      <p>Death Rate: {{ item.death_rate }}</p>
+      <p>Deaths: {{ item.deaths }} deaths in {{ item.year }}</p>
       <p>____________________________</p>
     </div>
   </div>
