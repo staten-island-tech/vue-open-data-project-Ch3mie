@@ -1,9 +1,9 @@
 <template>
-  <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
+  <Bar :data="chartData" :options="options" />
 </template>
 
-<script setup>
-import { ref } from 'vue'
+<script>
+import { ref, defineComponent } from 'vue'
 import { Bar } from 'vue-chartjs'
 import {
   Chart as ChartJS,
@@ -15,20 +15,26 @@ import {
   LinearScale,
 } from 'chart.js'
 
-// Register the required components for Chart.js
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
-// Define reactive state using ref
-const chartData = ref({
-  labels: ['January', 'February', 'March'],
-  datasets: [{ data: [40, 20, 12] }],
-})
+export default defineComponent({
+  name: 'BarChart',
+  components: { Bar },
+  setup() {
+    const chartData = ref({
+      labels: ['January', 'February', 'March'],
+      datasets: [
+        {
+          label: 'Data One',
+          backgroundColor: '#f87979',
+          data: [40, 20, 12],
+        },
+      ],
+    })
 
-const chartOptions = ref({
-  responsive: true,
+    const options = ref({})
+
+    return { chartData, options }
+  },
 })
 </script>
-
-<style scoped>
-/* Add any styles for your chart component here */
-</style>
