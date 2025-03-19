@@ -1,36 +1,57 @@
 <template>
-  <div>
-    <h2>Data</h2>
-    <div v-for="(item, index) in setData" :key="index">
-      <p>Race: {{ item.race_ethnicity }}</p>
-      <p>Sex: {{ item.sex }}</p>
-      <p>Cause of Death:{{ item.leading_cause }}</p>
-      <p>Death Rate: {{ item.death_rate }}</p>
-      <p>Deaths: {{ item.deaths }} deaths in {{ item.year }}</p>
-      <p>____________________________</p>
+  <div class="p-6 min-h-screen bg-gray-900">
+    <h2 class="text-3xl font-bold text-white mb-6 text-center">Data</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <div
+        v-for="(item, index) in setData"
+        :key="index"
+        class="bg-gray-800 border border-gray-700 shadow-lg rounded-xl p-6 hover:shadow-2xl transition-all text-white"
+      >
+        <h3 class="text-lg font-bold mb-2">Cause of Death: {{ item.leading_cause }}</h3>
+        <p class="text-gray-300"><span class="font-semibold">Sex:</span> {{ item.sex }}</p>
+        <p class="text-gray-300">
+          <span class="font-semibold">Race:</span> {{ item.race_ethnicity }}
+        </p>
+        <p class="text-gray-300">
+          <span class="font-semibold">Death Rate:</span> {{ item.death_rate }}
+        </p>
+        <p class="text-gray-300">
+          <span class="font-semibold">Deaths:</span> {{ item.deaths }} deaths in {{ item.year }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue'
+<script>
+import { ref, defineComponent, onMounted } from 'vue'
 
-const setData = ref([])
+export default defineComponent({
+  name: 'DataCards',
+  setup() {
+    const setData = ref([])
 
-async function getData() {
-  try {
-    let res = await fetch(`https://data.cityofnewyork.us/resource/jb7j-dtam.json`)
-    let data = await res.json()
-    setData.value = data
-    console.log(data)
-  } catch (error) {
-    console.error('Error fetching data:', error)
-  }
-}
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          'https://data.cityofnewyork.us/resource/jb7j-dtam.json?$limit=30',
+        )
+        const result = await response.json()
+        setData.value = result
+      } catch (error) {
+        console.error('Failed to fetch data:', error)
+      }
+    }
 
-onMounted(() => {
-  getData()
+    onMounted(() => {
+      fetchData()
+    })
+
+    return { setData }
+  },
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+/* Add any additional scoped CSS here */
+</style>
