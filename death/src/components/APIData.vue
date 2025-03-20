@@ -52,6 +52,4 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-/* Add any additional scoped CSS here */
-</style>
+<style scoped></style>
