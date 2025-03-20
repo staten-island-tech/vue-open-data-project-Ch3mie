@@ -1,9 +1,12 @@
 <template>
-  <div>
-    <div style="width: 1000px; height: 800px">
-      <Bar :data="chartData" :options="options" />
+  <div class="flex flex-col items-center justify-center min-h-screen bg-gray-900 p-6">
+    <div class="w-full max-w-4xl bg-gray-800/90 border-2 border-black shadow-lg rounded-xl p-6">
+      <h2 class="text-2xl font-bold text-white text-center mb-4">Death Statistics Chart</h2>
+      <div class="w-full h-[500px]">
+        <Bar :data="chartData" :options="options" />
+      </div>
+      <p v-if="loading" class="text-center text-gray-300 mt-4">Loading...</p>
     </div>
-    <p v-if="loading">Loading...</p>
   </div>
 </template>
 
